@@ -1,0 +1,17 @@
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import App from './App';
+import HomePage from './HomePage';
+
+function AppRouter() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/admin" element={<App />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default AppRouter;
