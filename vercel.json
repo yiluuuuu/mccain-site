@@ -1,34 +1,22 @@
 {
-  "version": 2,
-  "builds": [
+  "buildCommand": "cd frontend && vite build",
+  "outputDirectory": "frontend/dist",
+  "rewrites": [
     {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "frontend/dist"
-      }
+      "source": "/api/auth/login",
+      "destination": "/backend/api/auth.js"
     },
     {
-      "src": "backend/api/**/*.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/auth/login",
-      "dest": "/backend/api/auth.js"
+      "source": "/api/applicants/:id",
+      "destination": "/backend/api/applicants/[id].js"
     },
     {
-      "src": "/api/applicants/([^/]+)",
-      "dest": "/backend/api/applicants/[id].js?id=$1"
+      "source": "/api/applicants",
+      "destination": "/backend/api/applicants.js"
     },
     {
-      "src": "/api/applicants",
-      "dest": "/backend/api/applicants.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
     }
   ]
 }
