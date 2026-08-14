@@ -1,1 +1,42 @@
-[]
+[
+  {
+    "id": 1,
+    "name": "Amina Hassan",
+    "phone": "+254700100001",
+    "age": 27,
+    "passportNumber": "P10001",
+    "status": "accepted",
+    "location": "Nairobi, Kenya",
+    "photo": ""
+  },
+  {
+    "id": 2,
+    "name": "Daniel Kimani",
+    "phone": "+254700100002",
+    "age": 31,
+    "passportNumber": "P10002",
+    "status": "accepted",
+    "location": "Kampala, Uganda",
+    "photo": ""
+  },
+  {
+    "id": 3,
+    "name": "Sarah Okafor",
+    "phone": "+254700100003",
+    "age": 24,
+    "passportNumber": "P10003",
+    "status": "rejected",
+    "location": "Lagos, Nigeria",
+    "photo": ""
+  },
+  {
+    "id": 4,
+    "name": "Noah Moyo",
+    "phone": "+254700100004",
+    "age": 29,
+    "passportNumber": "P10004",
+    "status": "rejected",
+    "location": "Harare, Zimbabwe",
+    "photo": ""
+  }
+]

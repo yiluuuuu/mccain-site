@@ -11,8 +11,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const dataFile = path.join(__dirname, 'data', 'applicants.json');
 
+// Admin credentials (hardcoded for simplicity)
+const ADMIN_USERNAME = 'admin';
+const ADMIN_PASSWORD = 'admin123';
+
 app.use(cors());
-app.use(express.json({ limit: '10mb' }));
+app.use(express.json({ limit: '50mb' }));
 
 const ensureDataFile = () => {
   if (!fs.existsSync(dataFile)) {
@@ -30,6 +34,18 @@ const writeApplicants = (applicants) => {
   fs.writeFileSync(dataFile, JSON.stringify(applicants, null, 2));
 };
 
+// ── Auth ──────────────────────────────────────────────────────────────────
+app.post('/api/auth/login', (req, res) => {
+  const { username, password } = req.body;
+  if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+    // Simple base64 token — good enough for this use case
+    const token = Buffer.from(`${username}:${Date.now()}`).toString('base64');
+    return res.json({ token, user: { username, role: 'admin' } });
+  }
+  return res.status(401).json({ message: 'Invalid username or password' });
+});
+
+// ── Applicants ────────────────────────────────────────────────────────────
 app.get('/api/applicants', (req, res) => {
   res.json(readApplicants());
 });
@@ -73,3 +89,4 @@ app.delete('/api/applicants/:id', (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
+
