@@ -556,57 +556,62 @@ function HomePage() {
               </div>
             </div>
 
-            {/* I would like to know + Audience hub */}
-            <div className="like-to-know-holder">
-              <div className="dropdown-holder">
-                <div className="dropdown-title" id="like-to-know-ddl">I would like to know about...</div>
-                <div className="dropdown-items">
-                  <a href="https://www.mccain.com/careers/">What is it like to work at McCain Foods?</a>
-                  <a href="https://www.mccain.com/careers/how-to-apply/">How do I make a job application?</a>
-                  <a href="https://www.mccain.com/contact/">How do I contact McCain Foods?</a>
-                  <a href="https://www.mccain.com/information-centre/mccain-foods-worldwide/">How do I find other McCain websites?</a>
-                  <a href="https://www.mccain.com/information-centre/mccain-foods-worldwide/">How do I find McCain social media?</a>
-                  <a href="https://www.mccain.com/about-us/our-leadership/">Who is your CEO &amp; Board?</a>
-                  <a href="https://www.mccain.com/about-us/farmers/">How do I become a Grower/Farmer?</a>
-                </div>
-              </div>
-              <div className="audience-holder">
-                <a className="audience-item" href="https://www.mccain.com/about-us/our-business-brands/">
-                  <div className="audience-image">
-                    <img src="./McCain Foods Global Corporate Website _ McCain.com_files/foodservice-icon-for-com.png" alt="Icon - box of french fries" />
-                  </div>
-                  <div className="audience-title">For<br /> <span className="Festival">customers</span></div>
-                </a>
-                <a className="audience-item" href="https://www.mccain.com/careers/">
-                  <div className="audience-image">
-                    <img src="./McCain Foods Global Corporate Website _ McCain.com_files/career-icon-for-com.png" alt="Icon - 3 hands on top of each other" />
-                  </div>
-                  <div className="audience-title">For<br /> <span className="Festival">candidates</span></div>
-                </a>
-                <a className="audience-item" href="https://www.mccain.com/information-centre/news/">
-                  <div className="audience-image">
-                    <img src="./McCain Foods Global Corporate Website _ McCain.com_files/journalist-icon-for-com.png" alt="Icon - laptop" />
-                  </div>
-                  <div className="audience-title">For<br /> <span className="Festival">journalists &amp; media</span></div>
-                </a>
-                <a className="audience-item" href="https://www.mccain.com/about-us/farmers/">
-                  <div className="audience-image">
-                    <img src="./McCain Foods Global Corporate Website _ McCain.com_files/farmer-icon-for-com.png" alt="Icon - tractor" />
-                  </div>
-                  <div className="audience-title">For<br /> <span className="Festival">farmers &amp; growers</span></div>
-                </a>
-                <a className="audience-item" href="https://www.mccain.com/sustainability/">
-                  <div className="audience-image">
-                    <img src="./McCain Foods Global Corporate Website _ McCain.com_files/sustainability-icon-for-com.png" alt="Icon - plant growing from ground" />
-                  </div>
-                  <div className="audience-title">For<br /> <span className="Festival">sustainability &amp; community</span></div>
-                </a>
-              </div>
-            </div>
-
+            {/* Audience Section moved below applicant lists */}
           </div>
         </div>
       </section>
+    </div>
+  );
+}
+
+// ============ AUDIENCE & I WOULD LIKE TO KNOW SECTION ============
+function AudienceSection() {
+  return (
+    <div className="like-to-know-holder">
+      <div className="dropdown-holder">
+        <div className="dropdown-title" id="like-to-know-ddl">I would like to know about...</div>
+        <div className="dropdown-items">
+          <a href="https://www.mccain.com/careers/">What is it like to work at McCain Foods?</a>
+          <a href="https://www.mccain.com/careers/how-to-apply/">How do I make a job application?</a>
+          <a href="https://www.mccain.com/contact/">How do I contact McCain Foods?</a>
+          <a href="https://www.mccain.com/information-centre/mccain-foods-worldwide/">How do I find other McCain websites?</a>
+          <a href="https://www.mccain.com/information-centre/mccain-foods-worldwide/">How do I find McCain social media?</a>
+          <a href="https://www.mccain.com/about-us/our-leadership/">Who is your CEO &amp; Board?</a>
+          <a href="https://www.mccain.com/about-us/farmers/">How do I become a Grower/Farmer?</a>
+        </div>
+      </div>
+      <div className="audience-holder">
+        <a className="audience-item" href="https://www.mccain.com/about-us/our-business-brands/">
+          <div className="audience-image">
+            <img src="/McCain Foods Global Corporate Website _ McCain.com_files/foodservice-icon-for-com.png" alt="Icon - box of french fries" />
+          </div>
+          <div className="audience-title">For<br /> <span className="Festival">customers</span></div>
+        </a>
+        <a className="audience-item" href="https://www.mccain.com/careers/">
+          <div className="audience-image">
+            <img src="/McCain Foods Global Corporate Website _ McCain.com_files/career-icon-for-com.png" alt="Icon - 3 hands on top of each other" />
+          </div>
+          <div className="audience-title">For<br /> <span className="Festival">candidates</span></div>
+        </a>
+        <a className="audience-item" href="https://www.mccain.com/information-centre/news/">
+          <div className="audience-image">
+            <img src="/McCain Foods Global Corporate Website _ McCain.com_files/journalist-icon-for-com.png" alt="Icon - laptop" />
+          </div>
+          <div className="audience-title">For<br /> <span className="Festival">journalists &amp; media</span></div>
+        </a>
+        <a className="audience-item" href="https://www.mccain.com/about-us/farmers/">
+          <div className="audience-image">
+            <img src="/McCain Foods Global Corporate Website _ McCain.com_files/farmer-icon-for-com.png" alt="Icon - tractor" />
+          </div>
+          <div className="audience-title">For<br /> <span className="Festival">farmers &amp; growers</span></div>
+        </a>
+        <a className="audience-item" href="https://www.mccain.com/sustainability/">
+          <div className="audience-image">
+            <img src="/McCain Foods Global Corporate Website _ McCain.com_files/sustainability-icon-for-com.png" alt="Icon - plant growing from ground" />
+          </div>
+          <div className="audience-title">For<br /> <span className="Festival">sustainability &amp; community</span></div>
+        </a>
+      </div>
     </div>
   );
 }
@@ -1022,6 +1027,9 @@ function MainContent() {
             onUpdateClick={handleOpenUpdate}
           />
         </Container>
+
+        {/* Audience Section (5 icons + dropdown) rendered below applicant lists */}
+        <AudienceSection />
       </Box>
 
       {/* Footer */}
