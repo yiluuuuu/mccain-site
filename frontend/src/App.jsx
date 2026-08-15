@@ -205,11 +205,11 @@ function HomePage() {
       <div className="main-banner">
         <div className="page-banner">
           <div className="page-banner-content">
-            <h1 className="main-title">
+            <h1 className="main-title" style={{ color: '#000000' }}>
               We are McCain<span className="yellow-title">.</span>
             </h1>
             <div className="overview">
-              <p style={{ textAlign: 'center' }}>
+              <p style={{ textAlign: 'center', color: '#000000' }}>
                 Your career is here.<br />
                 Discover why now.<br /><br />
               </p>

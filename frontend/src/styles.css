@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   color-scheme: light;
   --bg: #f7efe7;
   --panel: #fffdf8;
@@ -312,3 +312,12 @@ a { color: inherit; text-decoration: none; }
   .mccain-header { flex-direction: column; align-items: flex-start; }
   .mccain-nav { gap: 12px; }
 }
+
+.main-title {
+  color: #000000 !important;
+}
+
+.page-banner-content, .page-banner-content p, .overview p {
+  color: #000000 !important;
+}
+
