@@ -37,8 +37,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
 import axios from 'axios';
 
-// Base API configuration for the local applicant backend
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+// Base API configuration for the applicant backend (relative URL for Vercel & local proxy)
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 const api = axios.create({ baseURL: API_BASE_URL });
 
 // Helper: convert a File object to a base64 data URL string
