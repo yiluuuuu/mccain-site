@@ -1,21 +1,13 @@
 {
-  "buildCommand": "cd frontend && vite build",
-  "outputDirectory": "frontend/dist",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
   "rewrites": [
     {
-      "source": "/api/auth/login",
-      "destination": "/backend/api/auth.js"
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
     },
     {
-      "source": "/api/applicants/:id",
-      "destination": "/backend/api/applicants/[id].js"
-    },
-    {
-      "source": "/api/applicants",
-      "destination": "/backend/api/applicants.js"
-    },
-    {
-      "source": "/((?!api/).*)",
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ]

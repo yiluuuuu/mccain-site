@@ -4,10 +4,10 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "cd frontend && vite",
+    "dev": "vite frontend",
     "dev:server": "cd backend && node server.js",
-    "build": "cd frontend && vite build",
-    "preview": "cd frontend && vite preview"
+    "build": "vite build frontend",
+    "preview": "vite preview frontend"
   },
   "dependencies": {
     "axios": "^1.7.9",
