@@ -227,12 +227,12 @@ function HomePage() {
             style={{ backgroundImage: 'url(/media/4480/careers-home-page-image.png)' }}
           >
             <img
-              src="./McCain Foods Global Corporate Website _ McCain.com_files/home-page-image.jpg"
+              src="/McCain Foods Global Corporate Website _ McCain.com_files/home-page-image.jpg"
               alt="We are McCain Banner Image"
               className="mobile"
             />
             <iframe
-              src="./McCain Foods Global Corporate Website _ McCain.com_files/805985356.html"
+              src="/McCain Foods Global Corporate Website _ McCain.com_files/805985356.html"
               frameBorder="0"
               allow="autoplay; encrypted-media;"
               allowFullScreen
