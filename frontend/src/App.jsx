@@ -959,10 +959,12 @@ function MainContent() {
       if (userData.photo instanceof File) {
         payload.photo = await fileToBase64(userData.photo);
       }
-      const res = await api.put(`/api/applicants/${userData.id ?? userData._id}`, payload);
+      const targetId = userData.id ?? userData._id;
+      const res = await api.put(`/api/applicants/${targetId}`, payload);
       if (res.data) {
-        const id = userData.id ?? userData._id;
-        setUsers((prev) => prev.map((user) => ((user.id ?? user._id) === id ? res.data : user)));
+        setUsers((prev) =>
+          prev.map((user) => (String(user.id ?? user._id) === String(targetId) ? res.data : user))
+        );
         setIsUpdateOpen(false);
       }
     } catch (err) {
@@ -977,9 +979,10 @@ function MainContent() {
     try {
       setLoading(true);
       await api.delete(`/api/applicants/${id}`);
-      setUsers((prev) => prev.filter((u) => (u.id ?? u._id) !== id));
+      setUsers((prev) => prev.filter((u) => String(u.id ?? u._id) !== String(id)));
     } catch (err) {
-      console.error(err);
+      console.error('Delete user error:', err);
+      alert('Failed to delete user. Please try again.');
     } finally {
       setLoading(false);
     }
