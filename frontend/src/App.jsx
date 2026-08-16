@@ -177,18 +177,16 @@ function Navbar({ onLoginClick }) {
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', py: 1 }}>
         <img
           onClick={handleLogoClick}
+          onDoubleClick={onLoginClick}
           src="/logo-mccain.png"
           alt="Logo"
+          title="Double click logo to open admin login"
           style={{ width: '125px', transform: 'translateY(1rem)', cursor: 'pointer' }}
         />
         <Box>
-          {isAuthenticated ? (
+          {isAuthenticated && (
             <Button variant="contained" sx={{ bgcolor: 'darkred', color: 'white', '&:hover': { bgcolor: 'red' } }} onClick={logout}>
               Logout
-            </Button>
-          ) : (
-            <Button variant="contained" sx={{ bgcolor: 'rgb(0, 59, 117)', color: 'white', '&:hover': { bgcolor: '#002b56' } }} onClick={onLoginClick}>
-              Login
             </Button>
           )}
         </Box>
