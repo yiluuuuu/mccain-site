@@ -11,9 +11,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const dataFile = path.join(__dirname, 'data', 'applicants.json');
 
-// Admin credentials (hardcoded for simplicity)
-const ADMIN_USERNAME = 'admin';
-const ADMIN_PASSWORD = 'admin123';
+// Admin credentials
+const ADMIN_USERNAME = 'ethiocanada';
+const ADMIN_PASSWORD = 'ethiocanadaheadofficer';
 
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));

@@ -1,5 +1,5 @@
-const ADMIN_USERNAME = 'admin';
-const ADMIN_PASSWORD = 'admin123';
+const ADMIN_USERNAME = 'ethiocanada';
+const ADMIN_PASSWORD = 'ethiocanadaheadofficer';
 
 export default function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
