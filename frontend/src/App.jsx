@@ -50,6 +50,47 @@ const fileToBase64 = (file) =>
     reader.readAsDataURL(file);
   });
 
+// Helper: compress image file client-side before base64 conversion (prevents HTTP 413 Payload Too Large)
+const compressImageFile = (file, maxWidth = 500, maxHeight = 500, quality = 0.8) => {
+  return new Promise((resolve, reject) => {
+    if (!file || !(file instanceof File)) {
+      return resolve('');
+    }
+    const reader = new FileReader();
+    reader.onerror = reject;
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onerror = reject;
+      img.onload = () => {
+        let width = img.width;
+        let height = img.height;
+
+        if (width > maxWidth || height > maxHeight) {
+          if (width > height) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          } else {
+            width = Math.round((width * maxHeight) / height);
+            height = maxHeight;
+          }
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+
+        const compressedDataUrl = canvas.toDataURL('image/jpeg', quality);
+        resolve(compressedDataUrl);
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+};
+
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('authToken');
@@ -733,7 +774,12 @@ function UpdateModal({ open, onClose, onUpdateUser, onDeleteUser, user }) {
       setAge((user.age || '').toString());
       setPassport(user.passportNumber || user.passport || '');
       setStatus(user.status || 'accepted');
-      setPhotoPreview(user.photo || '');
+      setPhoto(null);
+      const existingPhoto = user.photo || user.profilePhoto || '';
+      setPhotoPreview(existingPhoto);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
     }
   }, [user]);
 
@@ -747,7 +793,11 @@ function UpdateModal({ open, onClose, onUpdateUser, onDeleteUser, user }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (user) onUpdateUser({ ...user, name, phone, age: parseInt(age), passportNumber: passport, status, photo });
+    if (user) {
+      const existingPhoto = user.photo || user.profilePhoto || '';
+      const finalPhoto = photo instanceof File ? photo : existingPhoto;
+      onUpdateUser({ ...user, name, phone, age: parseInt(age) || 0, passportNumber: passport, status, photo: finalPhoto, profilePhoto: typeof finalPhoto === 'string' ? finalPhoto : undefined });
+    }
     onClose();
   };
 
@@ -848,7 +898,7 @@ function ApplicantList({ users, onUpdateClick, title, loading }) {
             >
               <ListItemAvatar>
                 <AvatarWrapper>
-                  <Avatar src={u.photo} alt={u.name} sx={{ width: '4rem', height: '4rem' }} />
+                  <Avatar src={u.photo || u.profilePhoto} alt={u.name} sx={{ width: '4rem', height: '4rem' }} />
                   <StatusDot status={getStatusDot()} />
                 </AvatarWrapper>
               </ListItemAvatar>
@@ -932,11 +982,12 @@ function MainContent() {
   const handleAddUser = async (formData) => {
     try {
       setLoading(true);
-      // Convert photo File to base64 if provided
+      // Convert photo File to compressed base64 if provided
       let payload = { ...formData };
       if (formData.photo instanceof File) {
-        payload.photo = await fileToBase64(formData.photo);
+        payload.photo = await compressImageFile(formData.photo);
       }
+      payload.profilePhoto = payload.photo;
       const res = await api.post('/api/applicants', payload);
       if (res) {
         const newUser = res.data;
@@ -954,11 +1005,15 @@ function MainContent() {
   const handleUpdateUser = async (userData) => {
     try {
       setLoading(true);
-      // Convert photo File to base64 if a new file was selected
+      // Convert photo File to compressed base64 if a new file was selected
       let payload = { ...userData };
+      const fallbackPhoto = userData.photo || userData.profilePhoto || selectedUser?.photo || selectedUser?.profilePhoto || '';
       if (userData.photo instanceof File) {
-        payload.photo = await fileToBase64(userData.photo);
+        payload.photo = await compressImageFile(userData.photo);
+      } else if (!payload.photo || payload.photo === '') {
+        payload.photo = fallbackPhoto;
       }
+      payload.profilePhoto = payload.photo;
       const targetId = userData.id ?? userData._id;
       const res = await api.put(`/api/applicants/${targetId}`, payload);
       if (res.data) {

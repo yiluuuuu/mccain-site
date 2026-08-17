@@ -61,7 +61,20 @@ export default function handler(req, res) {
       return;
     }
 
-    const updatedItem = { ...applicants[index], ...req.body, id: applicants[index].id };
+    const existingPhoto = applicants[index].photo || applicants[index].profilePhoto || '';
+    const newPhoto = (req.body.photo !== undefined && req.body.photo !== null && req.body.photo !== '')
+      ? req.body.photo
+      : (req.body.profilePhoto !== undefined && req.body.profilePhoto !== null && req.body.profilePhoto !== '')
+      ? req.body.profilePhoto
+      : existingPhoto;
+
+    const updatedItem = {
+      ...applicants[index],
+      ...req.body,
+      photo: newPhoto,
+      profilePhoto: newPhoto,
+      id: applicants[index].id,
+    };
     applicants[index] = updatedItem;
     writeApplicants(applicants);
     res.status(200).json(updatedItem);

@@ -63,15 +63,30 @@ app.post('/api/applicants', (req, res) => {
 
 app.put('/api/applicants/:id', (req, res) => {
   const applicants = readApplicants();
-  const index = applicants.findIndex((item) => item.id === Number(req.params.id));
+  const index = applicants.findIndex((item) => Number(item.id) === Number(req.params.id));
 
   if (index === -1) {
     return res.status(404).json({ message: 'Applicant not found' });
   }
 
-  applicants[index] = { ...applicants[index], ...req.body };
+  const existingPhoto = applicants[index].photo || applicants[index].profilePhoto || '';
+  const newPhoto = (req.body.photo !== undefined && req.body.photo !== null && req.body.photo !== '')
+    ? req.body.photo
+    : (req.body.profilePhoto !== undefined && req.body.profilePhoto !== null && req.body.profilePhoto !== '')
+    ? req.body.profilePhoto
+    : existingPhoto;
+
+  const updatedItem = {
+    ...applicants[index],
+    ...req.body,
+    photo: newPhoto,
+    profilePhoto: newPhoto,
+    id: applicants[index].id,
+  };
+
+  applicants[index] = updatedItem;
   writeApplicants(applicants);
-  res.json(applicants[index]);
+  res.json(updatedItem);
 });
 
 app.delete('/api/applicants/:id', (req, res) => {
