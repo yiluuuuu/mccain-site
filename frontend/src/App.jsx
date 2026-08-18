@@ -721,6 +721,20 @@ function AddModal({ open, onClose, onAddUser }) {
   const [passport, setPassport] = useState('');
   const [status, setStatus] = useState('accepted');
   const [photo, setPhoto] = useState(null);
+  const [showPhone, setShowPhone] = useState(false);
+
+  // Reset phone visibility each time the modal opens/closes
+  useEffect(() => {
+    if (!open) {
+      setShowPhone(false);
+      setPhone('');
+      setName('');
+      setAge('');
+      setPassport('');
+      setStatus('accepted');
+      setPhoto(null);
+    }
+  }, [open]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -734,9 +748,41 @@ function AddModal({ open, onClose, onAddUser }) {
         <DialogTitle>Add New Applicant</DialogTitle>
         <DialogContent>
           <TextField autoFocus margin="dense" label="Name" type="text" fullWidth required value={name} onChange={(e) => setName(e.target.value)} />
-          <TextField margin="dense" label="Phone" type="text" fullWidth required value={phone} onChange={(e) => setPhone(e.target.value)} />
           <TextField margin="dense" label="Age" type="number" fullWidth required value={age} onChange={(e) => setAge(e.target.value)} />
           <TextField margin="dense" label="Passport Number" type="text" fullWidth required value={passport} onChange={(e) => setPassport(e.target.value)} />
+
+          {/* Phone field — private by default, revealed on toggle */}
+          {showPhone ? (
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <TextField
+                margin="dense"
+                label="Phone (optional)"
+                type="text"
+                fullWidth
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+              <Button
+                size="small"
+                sx={{ mt: '6px', whiteSpace: 'nowrap', color: 'text.secondary', fontSize: '0.75rem' }}
+                onClick={() => { setShowPhone(false); setPhone(''); }}
+              >
+                Hide
+              </Button>
+            </Box>
+          ) : (
+            <Box sx={{ mt: 1, mb: 0.5 }}>
+              <Button
+                size="small"
+                variant="text"
+                sx={{ color: 'text.secondary', fontSize: '0.75rem', textTransform: 'none', pl: 0 }}
+                onClick={() => setShowPhone(true)}
+              >
+                + Add phone number (optional)
+              </Button>
+            </Box>
+          )}
+
           <FormControl fullWidth margin="dense">
             <InputLabel>Status</InputLabel>
             <Select value={status} label="Status" onChange={(e) => setStatus(e.target.value)}>
@@ -927,7 +973,7 @@ function ApplicantList({ users, onUpdateClick, title, loading }) {
                   <strong>Passport Number:</strong> {u.passportNumber || u.passport || 'N/A'}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                  <strong>Phone Number:</strong> {u.phone || 'N/A'}
+                  <strong>Phone Number:</strong> {u.phone || 'Private'}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
                   <strong>Age:</strong> {u.age || 'N/A'}
