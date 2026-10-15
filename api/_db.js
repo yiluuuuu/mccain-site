@@ -13,7 +13,7 @@ const blobPathname = 'applicants.json';
 
 export const readApplicants = async () => {
   const blob = await get(blobPathname, {
-    access: 'public',
+    access: 'private',
     useCache: false,
   });
 
@@ -30,7 +30,7 @@ export const readApplicants = async () => {
 
 export const writeApplicants = async (applicants) => {
   await put(blobPathname, JSON.stringify(applicants), {
-    access: 'public',
+    access: 'private',
     addRandomSuffix: false,
     allowOverwrite: true,
   });
